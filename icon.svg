@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <rect width="180" height="180" rx="38" fill="#062b4f"/>
+  <path d="M0 120 C32 104 52 130 84 114 C116 98 138 118 180 96 L180 180 L0 180 Z" fill="#0087a7"/>
+  <path d="M0 138 C34 122 55 149 88 132 C120 116 142 136 180 116 L180 180 L0 180 Z" fill="#39c5d8" opacity=".82"/>
+  <path d="M26 107 L47 87 H105 C126 87 143 100 150 119 L156 134 H137 L130 120 C125 111 116 106 104 106 H78 L64 134 H44 L58 106 H48 L35 121 H20 Z" fill="#fbfeff"/>
+  <circle cx="60" cy="132" r="15" fill="#051a2e"/>
+  <circle cx="60" cy="132" r="6" fill="#f2d28f"/>
+  <circle cx="126" cy="132" r="15" fill="#051a2e"/>
+  <circle cx="126" cy="132" r="6" fill="#f2d28f"/>
+  <path d="M75 76 L106 76 L96 89 L67 89 Z" fill="#e06f5f"/>
+  <path d="M118 81 L147 70 L139 91 Z" fill="#fbfeff"/>
+  <path d="M24 48 H42 V66 H24 Z M48 48 H66 V66 H48 Z M72 48 H90 V66 H72 Z M96 48 H114 V66 H96 Z M120 48 H138 V66 H120 Z M144 48 H162 V66 H144 Z" fill="#fbfeff" opacity=".92"/>
+  <path d="M42 48 H48 V66 H42 Z M66 48 H72 V66 H66 Z M90 48 H96 V66 H90 Z M114 48 H120 V66 H114 Z M138 48 H144 V66 H138 Z" fill="#051a2e"/>
+</svg>
