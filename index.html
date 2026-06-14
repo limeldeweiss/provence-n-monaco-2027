@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>2027 Provence & Monaco 行程</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#20313c;
+  --deep:#24444f;
+  --sea:#2f7d8c;
+  --olive:#6f7f42;
+  --ochre:#c58a38;
+  --rose:#b85f55;
+  --paper:#f7f4ee;
+  --card:#fffdfa;
+  --muted:#65747a;
+  --line:#ded8cd;
+  --shadow:0 8px 30px rgba(39,55,62,.11);
+}
+html,body{width:100%;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif}
+button{font:inherit}
+.hero{position:relative;min-height:270px;color:white;background:
+  linear-gradient(135deg,rgba(28,57,65,.92),rgba(47,125,140,.68)),
+  url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80") center/cover;
+  display:flex;align-items:flex-end}
+.hero-inner{width:min(980px,100%);margin:0 auto;padding:40px 18px 30px}
+.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#f6d7a0;font-weight:700;margin-bottom:10px}
+h1{font-family:"Noto Serif TC",serif;font-size:clamp(36px,8vw,62px);line-height:1.06;font-weight:900;letter-spacing:0;text-shadow:0 3px 18px rgba(0,0,0,.25)}
+.subtitle{margin-top:14px;font-size:15px;line-height:1.7;max-width:720px;color:rgba(255,255,255,.88)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.14);color:white;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;backdrop-filter:blur(8px);cursor:pointer}
+.chip.active{background:var(--rose);border-color:var(--rose)}
+.tabs-wrap{position:sticky;top:0;z-index:20;background:var(--deep);box-shadow:0 3px 18px rgba(0,0,0,.18)}
+.tabs{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:2px;padding:5px;max-width:1180px;margin:auto}
+.tab{min-width:0;border:0;background:transparent;color:rgba(255,255,255,.63);padding:8px 3px 10px;border-bottom:3px solid transparent;border-radius:7px 7px 0 0;cursor:pointer;line-height:1.18}
+.tab.active{color:white;background:rgba(255,255,255,.09);border-bottom-color:#f0c982}
+.tab-day{display:block;font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:inherit}
+.tab-city{display:block;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.main{width:min(940px,100%);margin:0 auto;padding:24px 16px 70px}
+.view{display:none}.view.active{display:block}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:20px;margin-bottom:18px}
+.overview-hero{background:linear-gradient(135deg,var(--deep),var(--sea));color:white;border:0;padding:24px}
+.overview-hero h2{font-family:"Noto Serif TC",serif;font-size:25px;margin-bottom:8px}
+.overview-hero p{line-height:1.85;color:rgba(255,255,255,.88)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:17px}
+.info-card.full{grid-column:1/-1}
+.info-card h3{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--sea);margin-bottom:10px}
+.info-card p,.info-card li{font-size:14px;line-height:1.75;color:var(--ink)}
+.badge-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.badge{display:inline-flex;align-items:center;border-radius:999px;background:#e9f0ee;color:var(--deep);padding:4px 10px;font-size:12px;font-weight:700}
+.flight{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
+.flight:last-child{border-bottom:0}
+.flight-code{background:var(--rose);color:white;border-radius:6px;padding:3px 8px;font-size:12px;font-weight:900;white-space:nowrap}
+.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;min-width:760px;font-size:13.5px}
+th{background:var(--deep);color:white;text-align:left;padding:12px 13px;font-size:12px;letter-spacing:.8px}
+td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tr:last-child td{border-bottom:0}
+.day-badge{display:inline-block;background:var(--deep);color:white;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:900;margin-bottom:3px}
+.note-list{display:grid;gap:8px}
+.note{font-size:14px;line-height:1.75;border-top:1px dashed var(--line);padding-top:10px}
+.note:first-child{border-top:0;padding-top:0}
+.day-head{background:linear-gradient(135deg,var(--deep),var(--sea));color:white;border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
+.day-num{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#f2d9a7;font-weight:800;margin-bottom:7px}
+.day-title{font-family:"Noto Serif TC",serif;font-size:28px;line-height:1.2}
+.day-sub{margin-top:9px;color:rgba(255,255,255,.84);line-height:1.7;font-size:14px}
+.section-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--sea);font-weight:900;margin:22px 0 12px;display:flex;align-items:center;gap:10px}
+.section-title:after{content:"";height:1px;background:var(--line);flex:1}
+.timeline{position:relative;display:flex;flex-direction:column;gap:10px}
+.timeline:before{content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(var(--sea),var(--olive));opacity:.35}
+.stop{display:grid;grid-template-columns:30px 1fr;gap:10px;position:relative;z-index:1}
+.dot{width:30px;height:30px;border-radius:50%;background:var(--sea);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;margin-top:10px;box-shadow:0 2px 10px rgba(47,125,140,.3)}
+.stop.transport .dot{width:14px;height:14px;margin:18px 0 0 8px;background:var(--olive)}
+.stop-card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.stop-card.transport-card{background:var(--deep);border-color:var(--deep);color:white}
+.stop-head{display:flex;align-items:center;gap:12px;padding:15px;cursor:pointer}
+.transport-card .stop-head{cursor:default}
+.icon{font-size:20px;width:24px;text-align:center;flex-shrink:0}
+.stop-info{min-width:0;flex:1}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--sea);font-weight:900;margin-bottom:4px}
+.transport-card .label{color:rgba(255,255,255,.62)}
+.name{font-size:15px;font-weight:900;color:var(--deep);line-height:1.35}
+.transport-card .name{color:white;font-size:14px}
+.arrow{color:var(--muted);font-size:12px;transition:transform .2s}.open .arrow{transform:rotate(180deg)}
+.body{max-height:0;overflow:hidden;transition:max-height .32s ease}
+.body.open{max-height:760px}
+.body-inner{border-top:1px solid var(--line);padding:0 15px 15px}
+.body-inner p{font-size:14.5px;line-height:1.86;margin-top:12px;color:#34464d}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;background:#eef1ea;color:var(--olive)}
+.tag.food{background:#fff0da;color:#9a5f13}.tag.sight{background:#e8f3f6;color:#1e6c7b}.tag.hotel{background:#ece8f2;color:#634a87}.tag.transport{background:#edf0f2;color:#465a62}.tag.note{background:#f8e8e4;color:#9e4f47}
+.source{font-size:12px;line-height:1.7;color:var(--muted)}
+.source a{color:var(--sea)}
+@media(max-width:720px){
+  .hero{min-height:300px}.hero-inner{padding:34px 16px 26px}
+  .tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .tab{padding:8px 4px}.tab-city{font-size:13px}
+  .info-grid{grid-template-columns:1fr}
+  .info-card.full{grid-column:auto}
+  .main{padding:18px 12px 60px}
+  .panel{padding:16px}
+  .day-title{font-size:24px}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">2027 Easter Break · France & Monaco</div>
+    <h1>Provence<br/>與 Monaco 8 日行程</h1>
+    <p class="subtitle">Marseille 進、Nice 出，不租車。以 Avignon、Marseille、Nice 三個住宿點串起教皇城、梵谷的 Arles、Luberon 山城、馬賽港口、摩納哥與蔚藍海岸小鎮。</p>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+
+<nav class="tabs-wrap"><div class="tabs" id="tabs"></div></nav>
+
+<main class="main">
+  <section class="view active" id="overview">
+    <div class="panel overview-hero">
+      <h2>住宿不頻繁搬家，交通用火車、小團與市區電車串起來</h2>
+      <p>核心邏輯是 Avignon 住 3 晚負責 Provence，Marseille 住 1 晚看港口城市，Nice 住 3 晚負責 Monaco、Èze、Villefranche-sur-Mer。行程時間以 2027 年實際班表與復活節週營業為準，這版先作為訂房與比價骨架。</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>去程航班</h3>
+        <div class="flight"><span class="flight-code">AF 7338</span><span>3/28（日）14:15 抵達 Marseille Provence Airport（MRS）。航班細節之後再補。</span></div>
+      </div>
+      <div class="info-card">
+        <h3>回程航班</h3>
+        <div class="flight"><span class="flight-code">EW 9421</span><span>4/4（日）15:45 Nice Côte d'Azur Airport（NCE）起飛。建議 13:45 前到機場。</span></div>
+      </div>
+      <div class="info-card full">
+        <h3>暫定住宿</h3>
+        <p><strong>3/28-3/31 Avignon Grand Hotel</strong>：在 Avignon Centre 車站旁，對不租車行程非常友善。</p>
+        <p><strong>3/31-4/1 MEININGER Marseille Centre la Joliette</strong>：靠近 Joliette 區，適合銜接 Vieux-Port、Mucem 與 Saint-Charles 車站。</p>
+        <p><strong>4/1-4/4 ibis budget Nice Californie Lenval</strong>：靠近 Tram L2 Lenval/Hôpital Lenval 一帶，去 Nice 機場很直覺，進市中心也方便。</p>
+        <div class="badge-row">
+          <span class="badge">Avignon 3 晚</span><span class="badge">Marseille 1 晚</span><span class="badge">Nice 3 晚</span><span class="badge">不租車</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">8 天行程一覽</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>日期</th><th>住宿</th><th>城市/小鎮</th><th>主要交通</th><th>亮點</th></tr></thead>
+        <tbody id="overviewRows"></tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:18px">
+      <div class="section-title" style="margin-top:0">訂票與營業提醒</div>
+      <div class="note-list">
+        <div class="note"><strong>復活節週：</strong>2027/3/28 是 Easter Sunday，3/29 是 Easter Monday。餐廳、商店、市場與小團都要提前確認營業。</div>
+        <div class="note"><strong>火車：</strong>法國區間火車建議用 SNCF Connect 查當日班表。長段 Avignon/Marseille/Nice 可等 2027 班表開放後再買。</div>
+        <div class="note"><strong>Luberon：</strong>不租車要玩 Gordes、Roussillon 這類山城，建議從 Avignon 訂半日或一日小團，比公車有效率很多。</div>
+        <div class="note"><strong>Nice 海岸線：</strong>Monaco、Villefranche-sur-Mer 用火車最穩；Èze Village 通常靠巴士上山，回程可依班次接 Villefranche。</div>
+      </div>
+    </div>
+
+    <div class="panel source">
+      資訊來源與後續確認：SNCF Connect、Marseille Provence Airport、Avignon Tourisme、Arles Tourisme、Marseille Tourisme、Explore Nice Côte d'Azur、Monaco 官方旅遊資訊、各飯店與餐廳官網。2027 班表與營業時間尚未完整開放，請在出發前 2-3 個月再校正。
+    </div>
+  </section>
+
+  <section class="view" id="day1"><div class="day-head"><div class="day-num">DAY 01 · 3月28日（日）</div><div class="day-title">Marseille 機場抵達，直接進 Avignon</div><div class="day-sub">復活節星期日，保持簡單：機場、轉車、入住、老城晚餐散步。</div></div><div class="timeline" id="tl-day1"></div></section>
+  <section class="view" id="day2"><div class="day-head"><div class="day-num">DAY 02 · 3月29日（一）</div><div class="day-title">Avignon 教皇城</div><div class="day-sub">復活節星期一，主打可靠的城內景點：教皇宮、斷橋、城牆與 Rhône 河景。</div></div><div class="timeline" id="tl-day2"></div></section>
+  <section class="view" id="day3"><div class="day-head"><div class="day-num">DAY 03 · 3月30日（二）</div><div class="day-title">Arles：羅馬古城與梵谷</div><div class="day-sub">從 Avignon 搭火車來回，走羅馬競技場、夜間咖啡座與羅納河星夜視角。</div></div><div class="timeline" id="tl-day3"></div></section>
+  <section class="view" id="day4"><div class="day-head"><div class="day-num">DAY 04 · 3月31日（三）</div><div class="day-title">Luberon 小團後前往 Marseille</div><div class="day-sub">不用租車也能補上 Provence 山城精華，傍晚移動到馬賽。</div></div><div class="timeline" id="tl-day4"></div></section>
+  <section class="view" id="day5"><div class="day-head"><div class="day-num">DAY 05 · 4月1日（四）</div><div class="day-title">Marseille 港口城市，午後往 Nice</div><div class="day-sub">舊港、Le Panier、守護聖母院，再搭火車沿海岸到 Nice。</div></div><div class="timeline" id="tl-day5"></div></section>
+  <section class="view" id="day6"><div class="day-head"><div class="day-num">DAY 06 · 4月2日（五）</div><div class="day-title">Monaco 一日遊</div><div class="day-sub">從 Nice 火車當日來回，老城岩丘、王宮、海洋博物館與 Monte Carlo。</div></div><div class="timeline" id="tl-day6"></div></section>
+  <section class="view" id="day7"><div class="day-head"><div class="day-num">DAY 07 · 4月3日（六）</div><div class="day-title">Èze 與 Villefranche-sur-Mer</div><div class="day-sub">保留蔚藍海岸最漂亮的一天：山城海景與小海灣。</div></div><div class="timeline" id="tl-day7"></div></section>
+  <section class="view" id="day8"><div class="day-head"><div class="day-num">DAY 08 · 4月4日（日）</div><div class="day-title">Nice 最後散步，機場回程</div><div class="day-sub">上午留給老城、市場或海濱，下午搭 Tram L2 到 Nice 機場。</div></div><div class="timeline" id="tl-day8"></div></section>
+</main>
+
+<script>
+const tripDays=[
+  {id:"day1",date:"3/28（日）",city:"Avignon",stay:"Avignon Grand Hotel",transport:"MRS 機場接駁/火車 → Avignon Centre",highlight:"抵達、入住、Place de l'Horloge、教皇宮外觀、Côtes du Rhône 晚餐"},
+  {id:"day2",date:"3/29（一）",city:"Avignon",stay:"Avignon Grand Hotel",transport:"城內步行",highlight:"Palais des Papes、Pont d'Avignon、Rocher des Doms、老城"},
+  {id:"day3",date:"3/30（二）",city:"Arles",stay:"Avignon Grand Hotel",transport:"Avignon Centre ⇄ Arles 火車約 15-20 分",highlight:"羅馬競技場、古劇場、梵谷咖啡座、羅納河星夜視角"},
+  {id:"day4",date:"3/31（三）",city:"Luberon / Marseille",stay:"MEININGER Marseille Centre la Joliette",transport:"Avignon 小團；Avignon/Marseille 火車約 1 小時",highlight:"Gordes、Roussillon 或 Pont du Gard；傍晚抵達 Marseille"},
+  {id:"day5",date:"4/1（四）",city:"Marseille / Nice",stay:"ibis budget Nice Californie Lenval",transport:"Marseille Saint-Charles → Nice-Ville 火車約 2.5-3 小時",highlight:"Vieux-Port、Le Panier、Notre-Dame de la Garde、Nice 海邊"},
+  {id:"day6",date:"4/2（五）",city:"Monaco",stay:"ibis budget Nice Californie Lenval",transport:"Nice-Ville ⇄ Monaco-Monte-Carlo 火車約 25 分",highlight:"Monaco-Ville、王宮、海洋博物館、Monte Carlo Casino"},
+  {id:"day7",date:"4/3（六）",city:"Èze / Villefranche",stay:"ibis budget Nice Californie Lenval",transport:"Tram + 巴士/火車，依當日班表銜接",highlight:"Èze Village、Jardin Exotique、Villefranche 海灣、Cocteau 小教堂"},
+  {id:"day8",date:"4/4（日）",city:"Nice",stay:"回程",transport:"Tram L2 Lenval/Hôpital Lenval → Nice Airport",highlight:"Vieux Nice、Cours Saleya、Promenade des Anglais、EW 9421 15:45"}
+];
+
+const cityMap={Avignon:"day1",Arles:"day3",Luberon:"day4",Marseille:"day5",Nice:"day8",Monaco:"day6","Èze":"day7"};
+
+const days={
+"tl-day1":[
+  {type:"transport",icon:"✈",label:"抵達",name:"Marseille Provence Airport（MRS）｜AF 7338 14:15 抵達"},
+  {type:"transport",icon:"🚌",label:"交通",name:"MRS 機場 → Vitrolles Aéroport Marseille Provence 站接駁 → TER/TGV 往 Avignon Centre｜抓 1.5-2.5 小時"},
+  {icon:"🏨",label:"住宿 CHECK-IN",name:"Avignon Grand Hotel",tags:[["hotel","3 晚"],["transport","Avignon Centre 車站旁"],["note","適合不租車"]],desc:"飯店就在 Avignon Centre 車站外側，對抵達日和後面 Arles、Marseille 火車移動很方便。入住後不用急著進景點，先確認隔天教皇宮時段與餐廳營業。"},
+  {icon:"🏛️",label:"傍晚散步",name:"Place de l'Horloge、教皇宮外觀、城牆",tags:[["sight","老城核心"],["note","復活節星期日"]],desc:"Avignon 14 世紀曾是教廷所在地，老城裡的石牆與廣場保留了中世紀政治中心的尺度。抵達日先走到 Place de l'Horloge，再看 Palais des Papes 外觀，晚上氣氛比白天更柔和。"},
+  {icon:"🍷",label:"晚餐候選",name:"La Fourchette / L'Agape / La Mirande",tags:[["food","普羅旺斯料理"],["food","Côtes du Rhône"],["note","需確認假日營業"]],desc:"第一晚適合吃普羅旺斯香草、羊肉、鴨胸、橄欖與 tapenade。La Fourchette 是 Avignon 老城經典小館；L'Agape 較現代；La Mirande 在教皇宮旁，屬於高級紀念餐，若要去要很早訂。"}
+],
+"tl-day2":[
+  {icon:"🏰",label:"上午景點",name:"Palais des Papes 教皇宮",tags:[["sight","UNESCO"],["sight","約 2 小時"]],desc:"教皇宮是歐洲最大的中世紀哥德式宮殿之一。14 世紀多位教皇在此居住與治理教會，所以它不是浪漫宮殿，而是宗教權力、軍事防禦和行政中心的混合體。建議早上開門後先進，避開團客。"},
+  {icon:"🌉",label:"景點",name:"Pont Saint-Bénézet / Pont d'Avignon",tags:[["sight","斷橋"],["sight","Rhône 河"]],desc:"這座橋原本是跨越 Rhône 河的重要中世紀橋樑，後來因洪水破壞，只留下今日著名的半截橋。它與教皇宮一起列入 UNESCO，也是法國童謠《Sur le Pont d'Avignon》的主角。"},
+  {icon:"🌳",label:"景點",name:"Rocher des Doms",tags:[["sight","免費"],["sight","俯瞰河景"]],desc:"教皇宮旁的高地花園，是看 Rhône 河、Avignon 斷橋和對岸 Villeneuve-lès-Avignon 的好位置。這裡適合在教皇宮後稍作休息，也能把城市地理感一次看懂。"},
+  {icon:"🥗",label:"午餐候選",name:"Les Halles d'Avignon 或老城 Bistro",tags:[["food","市場"],["note","Easter Monday 須確認"]],desc:"Les Halles 是 Avignon 的室內市場，適合看在地蔬果、起司、橄欖與熟食；但這天是復活節星期一，營業要接近日期再確認。若市場休息，就改在老城找午餐套餐。"},
+  {icon:"🚶",label:"下午散步",name:"Rue des Teinturiers、城牆與老城巷弄",tags:[["sight","水車街"],["sight","慢遊"]],desc:"Rue des Teinturiers 曾是染布工坊聚集的水道街，保留水車與石板路氛圍。下午不需要塞太多室內點，慢慢走比趕景點更能感受 Avignon。"},
+  {icon:"🍷",label:"晚餐與酒",name:"Côtes du Rhône / Châteauneuf-du-Pape",tags:[["food","紅酒"],["food","在地酒款"]],desc:"Avignon 北邊就是南隆河重要酒區。晚餐可點 Côtes du Rhône 紅酒；如果想喝更有代表性的瓶子，可試 Châteauneuf-du-Pape，常見 Grenache 主導、酒體溫暖。"}
+],
+"tl-day3":[
+  {type:"transport",icon:"🚆",label:"交通",name:"Avignon Centre → Arles｜TER 約 15-20 分，建議 09:00 前後出發"},
+  {icon:"🏟️",label:"景點",name:"Arènes d'Arles 羅馬競技場",tags:[["sight","1 世紀"],["sight","UNESCO"]],desc:"Arles 在羅馬時代是高盧南部的重要城市，競技場建於 1 世紀，可容納上萬觀眾。中世紀時競技場甚至變成城堡與住宅區，後來才恢復為古蹟。"},
+  {icon:"🏛️",label:"景點",name:"Théâtre Antique 古劇場",tags:[["sight","羅馬遺跡"],["sight","步行可達"]],desc:"古劇場比競技場更早，曾是羅馬城市公共娛樂生活的核心。今日只剩部分柱石與舞台遺構，但很適合和競技場一起理解 Arles 的羅馬城市格局。"},
+  {icon:"🎨",label:"梵谷場景",name:"Place du Forum 與 Café Terrace at Night",tags:[["sight","梵谷"],["sight","夜晚露天咖啡座"]],desc:"梵谷 1888 年在 Arles 畫下《夜晚露天咖啡座》，場景就在 Place du Forum 一角。現場咖啡廳很觀光，重點是站在廣場看構圖、顏色和夜景想像。"},
+  {icon:"🥘",label:"午餐候選",name:"Le Gibolin / Camargue 風味小館",tags:[["food","Bib Gourmand 候選"],["food","Camargue 米"]],desc:"Arles 靠近 Camargue，常見在地食材有 Camargue 米、牛肉燉菜 gardianne de taureau、海鹽與 rosé。Le Gibolin 是偏自然酒與小館風格的候選，熱門時段要訂位。"},
+  {icon:"🌌",label:"梵谷場景",name:"Rhône 河邊：Starry Night Over the Rhône 視角",tags:[["sight","羅納河上的星夜"],["sight","傍晚最佳"]],desc:"《羅納河上的星夜》描繪的是 Arles Rhône 河畔的夜色，而不是最有名那幅旋渦天空的《星夜》。傍晚到河邊走一段，會比較容易感覺到畫中的河面反光與城市燈火。"},
+  {icon:"🖼️",label:"展覽候選",name:"Fondation Vincent van Gogh Arles",tags:[["sight","當代藝術"],["note","看當期展覽"]],desc:"基金會不保證固定展出梵谷原作，而是用梵谷與當代藝術對話的方式策展。是否進館取決於 2027 當期展覽；如果展覽普通，把時間留給河邊和老城也很好。"},
+  {type:"transport",icon:"🚆",label:"回程",name:"Arles → Avignon Centre｜傍晚火車回 Avignon Grand Hotel"}
+],
+"tl-day4":[
+  {icon:"🧳",label:"退房",name:"Avignon Grand Hotel 寄放行李",tags:[["hotel","退房"],["transport","車站旁"]],desc:"早上退房後把行李寄在飯店或車站置物櫃，再參加 Avignon 出發的 Luberon 或 Pont du Gard 小團。小團結束後取行李，直接搭火車去 Marseille。"},
+  {type:"transport",icon:"🚐",label:"小團",name:"Avignon 出發半日/一日小團｜優先選 Gordes + Roussillon + Luberon"},
+  {icon:"🏘️",label:"山城",name:"Gordes",tags:[["sight","Luberon 經典"],["sight","石頭村"]],desc:"Gordes 建在山坡上，石屋順著地形層層堆疊，是 Luberon 最經典的明信片畫面。若是小團，通常會停在村外觀景點拍全景，再進村散步。"},
+  {icon:"🧡",label:"山城",name:"Roussillon",tags:[["sight","赭紅岩層"],["sight","色彩小鎮"]],desc:"Roussillon 以 ochre 赭土聞名，房屋和山壁呈現橘紅、黃、粉色調，和 Provence 常見的灰白石頭村完全不同。春天光線柔和，拍照很好看。"},
+  {icon:"🌿",label:"替代小團",name:"Pont du Gard / Saint-Rémy / Les Baux",tags:[["sight","羅馬水道橋"],["sight","梵谷療養院"],["note","看小團路線"]],desc:"若你們更愛歷史古蹟，可改選 Pont du Gard 加 Saint-Rémy 或 Les Baux。Pont du Gard 是壯觀的羅馬水道橋；Saint-Rémy 與梵谷療養院時期相關；Les Baux 則是山城堡壘遺址。"},
+  {type:"transport",icon:"🚆",label:"交通",name:"Avignon Centre / Avignon TGV → Marseille Saint-Charles｜約 35-80 分，依車種而定"},
+  {type:"transport",icon:"🚇",label:"交通",name:"Marseille Saint-Charles → Joliette / Désirée Clary 一帶｜地鐵或電車約 10-20 分"},
+  {icon:"🏨",label:"住宿 CHECK-IN",name:"MEININGER Marseille Centre la Joliette",tags:[["hotel","1 晚"],["transport","Joliette 區"]],desc:"Joliette 是馬賽港口更新區，隔天去 Mucem、舊港或 Saint-Charles 車站都算方便。晚上入住後不建議排太遠，吃完飯早點休息。"},
+  {icon:"🐟",label:"晚餐候選",name:"Les Halles de la Major / Joliette 周邊海鮮與地中海料理",tags:[["food","海鮮"],["food","地中海料理"]],desc:"如果不想跑遠，Joliette 和 Cathédrale La Major 周邊有不少輕鬆餐廳。想認真吃 bouillabaisse 馬賽魚湯，可另訂 Chez Fonfon 或 L'Epuisette，但正統魚湯價格高且要預訂。"}
+],
+"tl-day5":[
+  {icon:"🧳",label:"退房",name:"MEININGER Marseille Centre la Joliette 寄放行李",tags:[["hotel","退房"],["transport","上午市區"]],desc:"早上退房後寄行李。這天只安排馬賽市區精華，不去 Cassis，避免拖著行李和長段火車日太累。"},
+  {icon:"⚓",label:"景點",name:"Vieux-Port 舊港",tags:[["sight","城市起點"],["sight","港口"]],desc:"馬賽是法國最古老的城市之一，希臘人約在西元前 600 年建立港口聚落。舊港至今仍是城市心臟，早上可看魚市、船隻與港口生活。"},
+  {icon:"🏘️",label:"景點",name:"Le Panier 老城區",tags:[["sight","巷弄"],["sight","街頭藝術"]],desc:"Le Panier 是馬賽最老的街區之一，窄巷、階梯、彩色牆面和小店密集。比起華麗景點，這裡更能感受馬賽混合、粗獷、生活化的一面。"},
+  {type:"transport",icon:"🚌",label:"交通",name:"Vieux-Port 一帶 → Notre-Dame de la Garde｜巴士 60 或計程車，上山較省力"},
+  {icon:"⛪",label:"景點",name:"Basilique Notre-Dame de la Garde",tags:[["sight","馬賽守護聖母"],["sight","全城視野"]],desc:"守護聖母院位在馬賽制高點，19 世紀建成，金色聖母像俯瞰港口。當地人稱她 La Bonne Mère，是馬賽人情感很深的城市象徵；上方視野非常值得。"},
+  {icon:"🥖",label:"午餐候選",name:"舊港簡餐 / Maison Geney / Prosper",tags:[["food","午餐"],["food","地中海風味"]],desc:"如果下午要搭火車，午餐不要排太正式。可在舊港附近吃海鮮、三明治或小館套餐；若餐廳熱門，先訂位或準備候補方案。"},
+  {type:"transport",icon:"🚇",label:"交通",name:"Joliette / Vieux-Port → Marseille Saint-Charles｜取行李後進站"},
+  {type:"transport",icon:"🚆",label:"長段移動",name:"Marseille Saint-Charles → Nice-Ville｜火車約 2.5-3 小時"},
+  {type:"transport",icon:"🚋",label:"交通",name:"Nice-Ville → Jean Médecin / Alsace-Lorraine 轉 Tram L2 → Lenval/Hôpital Lenval｜約 25-35 分"},
+  {icon:"🏨",label:"住宿 CHECK-IN",name:"ibis budget Nice Californie Lenval",tags:[["hotel","3 晚"],["transport","Tram L2"],["transport","近海邊"]],desc:"飯店在 Nice 西側海岸線，去機場很方便。進老城要搭 Tram L2 到市中心再步行，晚上可以先走 Promenade des Anglais 海濱大道。"},
+  {icon:"🍕",label:"晚餐與小吃",name:"Nice 老城：socca、pissaladière、pan bagnat",tags:[["food","Cuisine Nissarde"],["food","輕鬆晚餐"]],desc:"Nice 飲食很有義大利與地中海性格。Socca 是鷹嘴豆粉薄餅，pissaladière 像洋蔥鯷魚塔，pan bagnat 是 Niçoise 沙拉風味三明治。Chez Pipo 是 socca 經典候選。"}
+],
+"tl-day6":[
+  {type:"transport",icon:"🚋",label:"交通",name:"ibis budget Nice Californie Lenval → Nice-Ville｜Tram L2 轉步行/電車，預留 30 分"},
+  {type:"transport",icon:"🚆",label:"交通",name:"Nice-Ville → Monaco-Monte-Carlo｜TER 約 25 分，班次多"},
+  {icon:"🏰",label:"景點",name:"Monaco-Ville / Le Rocher",tags:[["sight","摩納哥老城"],["sight","岩丘"]],desc:"Le Rocher 是摩納哥最有歷史感的區域，王宮、主教座堂與政府機關都集中在岩丘上。這裡和 Monte Carlo 的奢華感不同，更像小型王國的老城核心。"},
+  {icon:"👑",label:"景點",name:"Prince's Palace 王宮廣場",tags:[["sight","Grimaldi 家族"],["sight","王室象徵"]],desc:"Grimaldi 家族自 13 世紀末開始與摩納哥歷史緊密相連。王宮廣場可俯瞰港口，若時間合適也可看衛兵交接；是否入內參觀要看 2027 開放狀況。"},
+  {icon:"🐠",label:"景點",name:"Musée Océanographique de Monaco",tags:[["sight","約 2 小時"],["sight","懸崖建築"]],desc:"海洋博物館建在海崖邊，是摩納哥最值得進的室內景點之一。它與海洋研究、雅克-伊夫・庫斯托等歷史相關，建築本身也很壯觀。"},
+  {icon:"🥪",label:"午餐策略",name:"Monaco 簡單午餐，晚餐回 Nice",tags:[["food","省預算"],["note","Monaco 偏貴"]],desc:"Monaco 餐廳普遍較貴，午餐建議簡單吃 cafe、麵包店或市場型選擇，把預算留給 Nice 晚餐。若想景觀餐廳，一定要提前訂。"},
+  {type:"transport",icon:"🚶",label:"交通",name:"老城下山 → Monte Carlo Casino 一帶｜可步行、電梯與公車銜接"},
+  {icon:"🎲",label:"景點",name:"Casino de Monte-Carlo 外觀與廣場",tags:[["sight","Belle Époque"],["sight","拍照"]],desc:"Monte Carlo Casino 是摩納哥華麗形象的代表，由 Charles Garnier 參與設計，Belle Époque 風格強烈。不一定要進賭場，廣場、Hotel de Paris 與周邊車流就很有 Monaco 感。"},
+  {type:"transport",icon:"🚆",label:"回程",name:"Monaco-Monte-Carlo → Nice-Ville → Tram L2 回 Lenval"},
+  {icon:"🍽️",label:"晚餐候選",name:"Nice：Chez Pipo / Lou Pilha Leva / Cuisine Nissarde 餐廳",tags:[["food","socca"],["food","salade niçoise"]],desc:"回 Nice 吃比較舒服也更有選擇。可找有 Cuisine Nissarde 標章的餐廳，點 salade niçoise、petits farcis、daube niçoise 或 socca。"}
+],
+"tl-day7":[
+  {type:"transport",icon:"🚋",label:"交通",name:"飯店 → Nice 市中心巴士站｜Tram L2 銜接，依 2027 班表確認"},
+  {type:"transport",icon:"🚌",label:"交通",name:"Nice → Èze Village｜通常搭巴士上山，約 30-45 分；早班優先"},
+  {icon:"🏘️",label:"山城",name:"Èze Village",tags:[["sight","中世紀山城"],["sight","海景"]],desc:"Èze Village 位在海岸上方的岩坡，石巷、拱門、階梯和海景交錯，是蔚藍海岸最漂亮的小鎮之一。早點到比較能避開人潮。"},
+  {icon:"🌵",label:"景點",name:"Jardin Exotique d'Èze",tags:[["sight","仙人掌花園"],["sight","堡壘遺址"]],desc:"異國花園建在舊城堡遺址上，以多肉植物、仙人掌和地中海海景聞名。視野是 Èze 的精華，晴天能看到海岸線層次。"},
+  {icon:"🥗",label:"午餐候選",name:"Èze 簡餐 / La Chèvre d'Or 景觀餐",tags:[["food","景觀"],["note","高級餐需早訂"]],desc:"Èze 的海景餐廳價格通常不低。若只是想輕鬆玩，午餐可簡單吃；若要紀念餐，La Chèvre d'Or 是高級選項，但要很早預訂並確認兒童/青少年接受度。"},
+  {type:"transport",icon:"🚌",label:"交通",name:"Èze Village → Èze-sur-Mer / Beaulieu / Villefranche-sur-Mer｜依巴士班次銜接，必要時轉火車"},
+  {icon:"🌊",label:"海灣小鎮",name:"Villefranche-sur-Mer 老港與海灣",tags:[["sight","海灣"],["sight","慢遊"]],desc:"Villefranche 的海灣比 Nice 更小、更柔和，彩色房子、港口與弧形海岸很適合下午散步。這裡比 Cannes 更貼近蔚藍海岸小鎮感。"},
+  {icon:"⛪",label:"景點",name:"Chapelle Saint-Pierre",tags:[["sight","Jean Cocteau"],["sight","漁民小教堂"]],desc:"Saint-Pierre 小教堂由 Jean Cocteau 裝飾，壁畫主題連結聖彼得、海洋與漁民生活。規模不大，但很有地方性與藝術感。"},
+  {type:"transport",icon:"🚆",label:"回程",name:"Villefranche-sur-Mer → Nice-Ville｜火車約 7 分；再轉 Tram L2 回飯店"},
+  {icon:"🍨",label:"晚餐與甜點",name:"Nice 老城：gelato / tourte de blettes sucrée",tags:[["food","甜點"],["food","老城"]],desc:"最後一個完整晚上適合回 Nice 老城吃飯。甜點可試 gelato，或比較在地的甜瑞士甜菜塔 tourte de blettes sucrée，味道很特別。"}
+],
+"tl-day8":[
+  {icon:"🧳",label:"退房",name:"ibis budget Nice Californie Lenval",tags:[["hotel","退房"],["transport","可寄放行李"]],desc:"EW 9421 15:45 起飛，建議 13:45 前抵達機場。若飯店可寄放行李，上午可以輕鬆進市中心；若不方便，就縮短市區行程直接往機場。"},
+  {type:"transport",icon:"🚋",label:"交通",name:"Lenval/Hôpital Lenval → Nice 老城一帶｜Tram L2 到市中心後步行"},
+  {icon:"🌺",label:"上午散步",name:"Cours Saleya 與 Vieux Nice",tags:[["sight","市場"],["note","週日營業需確認"]],desc:"Cours Saleya 是 Nice 老城的市場核心，花市、蔬果與餐廳集中；週日通常有不同市場型態，但 2027 當日仍要再確認。老城帶有義大利城市的色彩，巷弄很適合最後散步。"},
+  {icon:"🌴",label:"海邊收尾",name:"Promenade des Anglais",tags:[["sight","海濱大道"],["sight","Nice 代表景色"]],desc:"英國人大道是 Nice 最具代表性的海濱大道，19 世紀起與英國度假客歷史相關。回程日前不要排太趕，在海邊走一段就是很好的收尾。"},
+  {icon:"🥙",label:"午餐/帶走",name:"Pan bagnat、socca、pissaladière",tags:[["food","Nice 小吃"],["food","機場前簡餐"]],desc:"如果時間不多，買 pan bagnat 或簡單小吃比坐正式餐廳穩。Pan bagnat 像把 salade niçoise 夾進麵包，是 Nice 很適合外帶的午餐。"},
+  {type:"transport",icon:"🚋",label:"機場交通",name:"Lenval/Hôpital Lenval → Nice Airport Terminal 1/2｜Tram L2 約 15-25 分，抓寬裕時間"},
+  {icon:"✈️",label:"回程",name:"Nice Côte d'Azur Airport（NCE）｜EW 9421 15:45 起飛",tags:[["transport","建議 13:45 前抵達"],["note","航班細節待補"]],desc:"Nice 機場離市區很近，但週日與復活節假期尾聲可能人多。建議早一點完成報到與安檢，把不確定性留在機場而不是路上。"}
+]};
+
+function tagHtml(tags){return (tags||[]).map(([type,text])=>`<span class="tag ${type}">${text}</span>`).join("")}
+function buildTimeline(id,items){
+  const el=document.getElementById(id); let n=0;
+  el.innerHTML=items.map((s,i)=>{
+    if(s.type==="transport"){
+      return `<div class="stop transport"><div class="dot"></div><div class="stop-card transport-card"><div class="stop-head"><div class="icon">${s.icon}</div><div class="stop-info"><div class="label">${s.label}</div><div class="name">${s.name}</div></div></div></div></div>`;
+    }
+    n++; const sid=`${id}-${i}`;
+    return `<div class="stop"><div class="dot">${n}</div><div class="stop-card" id="${sid}"><div class="stop-head" onclick="toggleStop('${sid}')"><div class="icon">${s.icon}</div><div class="stop-info"><div class="label">${s.label}</div><div class="name">${s.name}</div></div><div class="arrow">▼</div></div><div class="body" id="body-${sid}"><div class="body-inner"><div class="tags">${tagHtml(s.tags)}</div><p>${s.desc}</p></div></div></div></div>`;
+  }).join("");
+}
+function toggleStop(id){const card=document.getElementById(id),body=document.getElementById("body-"+id);card.classList.toggle("open");body.classList.toggle("open",card.classList.contains("open"))}
+function showView(id,btn){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(id).classList.add("active"); btn.classList.add("active");
+  const city=btn.dataset.city; document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.dataset.city===city));
+  window.scrollTo({top:document.querySelector(".hero").offsetHeight,behavior:"smooth"});
+}
+function jump(city){const id=cityMap[city]; const btn=[...document.querySelectorAll(".tab")].find(b=>b.dataset.id===id); if(btn)showView(id,btn)}
+
+document.getElementById("tabs").innerHTML=`<button class="tab active" data-id="overview" onclick="showView('overview',this)"><span class="tab-day">總覽</span><span class="tab-city">全部</span></button>`+
+  tripDays.map((d,i)=>`<button class="tab" data-id="${d.id}" data-city="${d.city.split(" ")[0]}" onclick="showView('${d.id}',this)"><span class="tab-day">Day ${i+1}<br>${d.date.replace("（","<br>（")}</span><span class="tab-city">${d.city}</span></button>`).join("");
+document.getElementById("chips").innerHTML=Object.keys(cityMap).map((c,i)=>`<button class="chip ${i===0?"active":""}" data-city="${c}" onclick="jump('${c}')">${c}</button>`).join("");
+document.getElementById("overviewRows").innerHTML=tripDays.map((d,i)=>`<tr><td><span class="day-badge">Day ${i+1}</span><br>${d.date}</td><td>${d.stay}</td><td>${d.city}</td><td>${d.transport}</td><td>${d.highlight}</td></tr>`).join("");
+Object.entries(days).forEach(([id,items])=>buildTimeline(id,items));
+</script>
+</body>
+</html>
